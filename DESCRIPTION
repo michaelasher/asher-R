@@ -1,8 +1,8 @@
-Package: Asher
-Title: Functions I've Written to Simplify my Workflow
+Package: asherR
+Title: Michael Asher's R Code
 Version: 0.0.0.9000
 Authors@R: person("Michael", "Asher", email = "mwasher@wisc.edu", role = c("aut", "cre"))
-Description: Functions to Simplify my Life.
+Description: Functions to simplify my life.
 Depends: R (>= 3.5.1)
 License: GPL-3.0-or-later
 Encoding: UTF-8
