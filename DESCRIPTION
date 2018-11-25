@@ -14,4 +14,5 @@ Imports:
     lm.beta,
     knitr,
     magrittr,
-    stringr
+    stringr,
+    psych

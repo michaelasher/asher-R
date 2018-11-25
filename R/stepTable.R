@@ -9,7 +9,7 @@
 #' @param ... up to 8 linear models, produced by lm
 #' @param Betas whether standardized betas should be printed
 #' @param ModelStats whether r squared, etc. should be printed
-#' @return The regression table is printed to the viewer using the "Kable" package
+#' @return The regression table is printed to the viewer using the "Kable" function from knitr
 #' @export
 stepTable = function(..., Betas = TRUE, ModelStats = FALSE){
 

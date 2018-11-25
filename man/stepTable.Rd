@@ -14,7 +14,7 @@ stepTable(..., Betas = TRUE, ModelStats = FALSE)
 \item{ModelStats}{whether r squared, etc. should be printed}
 }
 \value{
-The regression table is printed to the viewer using the "Kable" package
+The regression table is printed to the viewer using the "Kable" function from knitr
 }
 \description{
 This function creates a summary table for a linear model, and outputs it to the
