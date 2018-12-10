@@ -1,7 +1,7 @@
 #' Make a Correlation Matrix Suitable for an APA Publication
 #'
 #' This function creates a correlation matrix, given a data frame of variables,
-#' and outputs it to the viewer in HTML Format to facilitate copyin and pasting. 
+#' and outputs it to the viewer in HTML Format to facilitate copying and pasting. 
 #' It uses stars to indicate significance.
 #'
 #' @param x a matrix containing the data
@@ -11,8 +11,8 @@
 #' @param result the format of the output
 #' @param decimals number of decimals in the correlation matrix
 #' @param cutoffs a vector of 3 cutoffs values. p values less than cutoff 1 get 3 stars, 
-#' those less than cutoff 2 get 2 stars, and those less than cutoff 1 get one star.
-#' @return The correlation matrix is printed to the viewer using the "Kable" package
+#' those less than cutoff 2 get 2 stars, and those less than cutoff 1 get one star
+#' @return The correlation matrix is printed to the viewer using the "Kable" function
 #' @export
 
 corAPA = function(x, missingMethod=c("pairwise","complete"), 
