@@ -19,15 +19,15 @@ corAPA(x, missingMethod = c("pairwise", "complete"),
 \item{decimals}{number of decimals in the correlation matrix}
 
 \item{cutoffs}{a vector of 3 cutoffs values. p values less than cutoff 1 get 3 stars, 
-those less than cutoff 2 get 2 stars, and those less than cutoff 1 get one star.}
+those less than cutoff 2 get 2 stars, and those less than cutoff 1 get one star}
 
 \item{result}{the format of the output}
 }
 \value{
-The correlation matrix is printed to the viewer using the "Kable" package
+The correlation matrix is printed to the viewer using the "Kable" function
 }
 \description{
 This function creates a correlation matrix, given a data frame of variables,
-and outputs it to the viewer in HTML Format to facilitate copyin and pasting. 
+and outputs it to the viewer in HTML Format to facilitate copying and pasting. 
 It uses stars to indicate significance.
 }
