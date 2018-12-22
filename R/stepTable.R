@@ -1,7 +1,7 @@
 #' Make a Stepwise Regression Table
 #'
 #' This function creates a summary table for a linear model, and outputs it to the
-#' viewer in HTML Format to facilitate copyin and pasting. By default it outputs
+#' viewer in HTML Format to facilitate copying and pasting by default. By default it outputs
 #' standardized betas for regression coefficients, and it can accept
 #' up to 8 models as arguments, which makes it ideal for displaying stepwise models.
 #'
@@ -9,9 +9,10 @@
 #' @param ... up to 8 linear models, produced by lm
 #' @param Betas whether standardized betas should be printed
 #' @param ModelStats whether r squared, etc. should be printed
-#' @return The regression table is printed to the viewer using the "Kable" function from knitr
+#' @param Output whether output should be displayed in the viewer, or formatted with "Kable" for markdown
+#' @return The regression table
 #' @export
-stepTable = function(..., Betas = TRUE, ModelStats = FALSE){
+stepTable = function(..., Betas = TRUE, ModelStats = FALSE, Output = c('viewer','markdown')){
 
   options(knitr.kable.NA = '')
 
@@ -117,5 +118,14 @@ stepTable = function(..., Betas = TRUE, ModelStats = FALSE){
   }
   # Change first column name to say 'DV: ____'
   colnames(c)[1] = paste("DV: ",colnames(elipsis[[1]]$model)[1],by="")
-  knitr::kable(c, digits = 3, format = 'html', booktabs = F) %>% kableExtra::kable_styling()
+
+  if(Output[1]=='viewer'){
+    return(knitr::kable(c, digits = 3, format = 'html', booktabs = F) %>% kableExtra::kable_styling())
+  }else{
+    return(knitr::kable(c, digits = 3))
+  }
+
+
+
+
 }

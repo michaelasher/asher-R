@@ -4,7 +4,8 @@
 \alias{stepTable}
 \title{Make a Stepwise Regression Table}
 \usage{
-stepTable(..., Betas = TRUE, ModelStats = FALSE)
+stepTable(..., Betas = TRUE, ModelStats = FALSE, Output = c("viewer",
+  "markdown"))
 }
 \arguments{
 \item{...}{up to 8 linear models, produced by lm}
@@ -12,13 +13,15 @@ stepTable(..., Betas = TRUE, ModelStats = FALSE)
 \item{Betas}{whether standardized betas should be printed}
 
 \item{ModelStats}{whether r squared, etc. should be printed}
+
+\item{Output}{whether output should be displayed in the viewer, or formatted with "Kable" for markdown}
 }
 \value{
-The regression table is printed to the viewer using the "Kable" function from knitr
+The regression table
 }
 \description{
 This function creates a summary table for a linear model, and outputs it to the
-viewer in HTML Format to facilitate copyin and pasting. By default it outputs
+viewer in HTML Format to facilitate copying and pasting by default. By default it outputs
 standardized betas for regression coefficients, and it can accept
 up to 8 models as arguments, which makes it ideal for displaying stepwise models.
 }
