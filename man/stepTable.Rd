@@ -5,7 +5,7 @@
 \title{Make a Stepwise Regression Table}
 \usage{
 stepTable(..., Betas = TRUE, ModelStats = FALSE, Output = c("viewer",
-  "markdown"), twoColumns = TRUE)
+  "markdown"), twoColumns = TRUE, Stars = FALSE)
 }
 \arguments{
 \item{...}{up to 8 linear models, produced by lm}
@@ -17,6 +17,8 @@ stepTable(..., Betas = TRUE, ModelStats = FALSE, Output = c("viewer",
 \item{Output}{whether output should be displayed in the viewer, or formatted with "Kable" for markdown}
 
 \item{twoColumns}{if true, returns only coefficient and p value, otherwise returns standard error and t as well.}
+
+\item{Stars}{adds significance stars for the last model, if requested}
 }
 \value{
 The regression table

@@ -11,9 +11,10 @@
 #' @param ModelStats whether r squared, etc. should be printed
 #' @param Output whether output should be displayed in the viewer, or formatted with "Kable" for markdown
 #' @param twoColumns if true, returns only coefficient and p value, otherwise returns standard error and t as well.
+#' @param Stars adds significance stars for the last model, if requested
 #' @return The regression table
 #' @export
-stepTable = function(..., Betas = TRUE, ModelStats = FALSE, Output = c('viewer','markdown'), twoColumns = TRUE){
+stepTable = function(..., Betas = TRUE, ModelStats = FALSE, Output = c('viewer','markdown'), twoColumns = TRUE, Stars = FALSE){
 
   options(knitr.kable.NA = '')
 
@@ -83,7 +84,7 @@ stepTable = function(..., Betas = TRUE, ModelStats = FALSE, Output = c('viewer',
   if(Betas){c = dplyr::filter(c, rowname != '(Intercept)')}
   c = tibble::as.tibble(c)
   cNames = rep(c('B','S.E','t','p'), l)
-  if(twoColumns){cNames = rep(c('B','sig.'),l)}
+  if(twoColumns){cNames = rep(c('B','p'),l)}
   colnames(c)[2:ncol(c)] = cNames
 
   # Removing Names of Factors from Variable Names
@@ -119,6 +120,17 @@ stepTable = function(..., Betas = TRUE, ModelStats = FALSE, Output = c('viewer',
   }
   # Change first column name to say 'DV: ____'
   colnames(c)[1] = paste("DV: ",colnames(elipsis[[1]]$model)[1],by="")
+
+  # Add stars for significance if requested:
+  if(Stars){
+    c$stars = dplyr::case_when(
+      c[,ncol(c)] < .001 ~ "***",
+      c[,ncol(c)] < .01 ~ "**",
+      c[,ncol(c)] < .05 ~ "*",
+      c[,ncol(c)] < .10 ~ "†"
+    )
+    names(c)[length(c)] = ""
+  }
 
   if(Output[1]=='viewer'){
     return(knitr::kable(c, digits = 3, format = 'html', booktabs = F) %>% kableExtra::kable_styling())
