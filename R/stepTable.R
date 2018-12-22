@@ -10,9 +10,10 @@
 #' @param Betas whether standardized betas should be printed
 #' @param ModelStats whether r squared, etc. should be printed
 #' @param Output whether output should be displayed in the viewer, or formatted with "Kable" for markdown
+#' @param twoColumns if true, returns only coefficient and p value, otherwise returns standard error and t as well.
 #' @return The regression table
 #' @export
-stepTable = function(..., Betas = TRUE, ModelStats = FALSE, Output = c('viewer','markdown')){
+stepTable = function(..., Betas = TRUE, ModelStats = FALSE, Output = c('viewer','markdown'), twoColumns = TRUE){
 
   options(knitr.kable.NA = '')
 
@@ -77,13 +78,13 @@ stepTable = function(..., Betas = TRUE, ModelStats = FALSE, Output = c('viewer',
     c$Missing7 = ifelse(is.na(c$est.25),1,0)
   }
   c = dplyr::arrange(c, Missing1, Missing2,Missing3,Missing4,Missing5,Missing6,Missing7,Colon)
-  c = dplyr::select(c, -dplyr::starts_with('Miss'), -dplyr::starts_with('Colon'),-dplyr::starts_with('SE'), -dplyr::starts_with('t'))
+  c = dplyr::select(c, -dplyr::starts_with('Miss'), -dplyr::starts_with('Colon'))
+  if(twoColumns){c = select(c, -dplyr::starts_with('SE'), -dplyr::starts_with('t'))}
   if(Betas){c = dplyr::filter(c, rowname != '(Intercept)')}
   c = tibble::as.tibble(c)
-  cNames = rep(c('B','sig.'),l)
+  cNames = rep(c('B','S.E','t','p'), l)
+  if(twoColumns){cNames = rep(c('B','sig.'),l)}
   colnames(c)[2:ncol(c)] = cNames
-
-
 
   # Removing Names of Factors from Variable Names
   facs = dplyr::select_if(elipsis[[l]]$model, is.factor)
@@ -124,8 +125,5 @@ stepTable = function(..., Betas = TRUE, ModelStats = FALSE, Output = c('viewer',
   }else{
     return(knitr::kable(c, digits = 3))
   }
-
-
-
 
 }
