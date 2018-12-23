@@ -14,6 +14,7 @@ Imports:
     lm.beta,
     knitr,
     magrittr,
+    lmSupport,
     stringr,
     psych,
     rstudioapi
