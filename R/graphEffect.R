@@ -167,10 +167,23 @@ graph_interaction <- function(d, m, x, fill, xlevels = c(-1,1), fill2, x2){
   dNames = m$model %>% names()
   yLab = dNames[1]
 
+  # Determine Y min and max for bar graph
+  yvar = names(model.frame(m))[1]
+  ySD = sd(eval(parse(text=paste("d$", yvar, sep = ""))), na.rm = T)
+  yMin = min(eval(parse(text=paste("d$", yvar, sep = ""))), na.rm = T)
+  yMax = max(eval(parse(text=paste("d$", yvar, sep = ""))), na.rm = T)
+  ciMin = min(dOut$CILo)
+  ciMax = max(dOut$CIHi)
+  buffer = (ySD/2)
+  graphMin = ciMin - buffer
+  graphMax = ciMax + buffer
+  graphMin = ifelse(yMin > graphMin, yMin, graphMin)
+  graphMax = ifelse(yMax < graphMax, yMax, graphMax)
+
   # Add errobars, minimal theme, and labels
   out <- out + ggplot2::theme_minimal() +
     ggplot2::geom_errorbar(aes(ymin = CILo, ymax = CIHi), width = .25, position =  position_dodge(width = 0.90)) +
-    ggplot2::labs(x = vary1, y = yLab, fill = NULL)
+    ggplot2::labs(x = vary1, y = yLab, fill = NULL) + coord_cartesian(ylim = c(graphMin,graphMax))
 
   return(out)
 
