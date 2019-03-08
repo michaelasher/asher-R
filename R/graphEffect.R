@@ -98,7 +98,6 @@ graph_interaction <- function(d, m, x, fill, xlevels = c(-1,1), fill2, x2){
   # the package is not designed for 4-way interactions.
   if(!missing(fill2) && !missing(x2)){
     print("You can't have 2 Xs and 2 fills")
-    break()
   }
 
   # Capturing x2 if it exists

@@ -80,7 +80,7 @@ stepTable = function(..., Betas = TRUE, ModelStats = FALSE, Output = c('viewer',
   }
   c = dplyr::arrange(c, Missing1, Missing2,Missing3,Missing4,Missing5,Missing6,Missing7,Colon)
   c = dplyr::select(c, -dplyr::starts_with('Miss'), -dplyr::starts_with('Colon'))
-  if(twoColumns){c = select(c, -dplyr::starts_with('SE'), -dplyr::starts_with('t'))}
+  if(twoColumns){c = dplyr::select(c, -dplyr::starts_with('SE'), -dplyr::starts_with('t'))}
   if(Betas){c = dplyr::filter(c, rowname != '(Intercept)')}
   c = tibble::as.tibble(c)
   cNames = rep(c('B','S.E','t','p'), l)
