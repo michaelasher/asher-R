@@ -16,4 +16,5 @@ Imports:
     magrittr,
     stringr,
     psych,
-    rstudioapi
+    rstudioapi,
+    mice
