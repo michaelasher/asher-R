@@ -18,12 +18,12 @@ multiSummaryImp = function(..., Stars = T){
   elipsis = list(...)
   l = length(elipsis)
   c = summary(mice::pool(elipsis[[1]])) %>% data.frame() %>% tibble::rownames_to_column() %>% data.frame()
-  c = select(c, -starts_with('df'))
+  c = select(c, -starts_with('df'), -rowname)
   for(i in seq(from = 1, to = l)){
     if(i > 1){
       m = summary(mice::pool(elipsis[[i]])) %>% data.frame() %>% tibble::rownames_to_column() %>% data.frame()
       m = dplyr::select(m, -dplyr::starts_with('df'))
-      c = merge(c,m, by = 'rowname', all.x = TRUE, all.y = TRUE)
+      c = merge(c,m, by = 'term', all.x = TRUE, all.y = TRUE)
     }
     cNames = paste(rep(c('est','SE','t','p'),i),seq(2:ncol(c)), sep = '.')
     colnames(c)[2:ncol(c)] = cNames
@@ -44,7 +44,7 @@ multiSummaryImp = function(..., Stars = T){
   c$Missing14 = 0
   c$Missing15 = 0
 
-  c$Colon = stringr::str_count(c$rowname, ":")
+  c$Colon = stringr::str_count(c$term, ":")
   if(l > 1){
     c$Missing1 = ifelse(is.na(c$est.1),1,0)
   }
@@ -91,16 +91,16 @@ multiSummaryImp = function(..., Stars = T){
     c$Missing15 = ifelse(is.na(c$est.57),1,0)
   }
   c = dplyr::arrange(c, Missing1, Missing2,Missing3,Missing4,Missing5,Missing6,Missing7,Missing8,Missing9,Missing10,Missing11,Missing12,Missing13,Missing14,Missing15,Colon)
-  c = dplyr::select(c, -dplyr::starts_with('Miss'), -dplyr::starts_with('Colon'),-dplyr::starts_with('SE'), -dplyr::starts_with('t'))
+  c = dplyr::select(c, -dplyr::starts_with('Miss'), -dplyr::starts_with('Colon'),-dplyr::starts_with('SE'), -dplyr::starts_with('t.'))
   c = tibble::as.tibble(c)
   cNames = rep(c('b','sig.'),l)
   colnames(c)[2:ncol(c)] = cNames
 
-  c$rowname = gsub(":", " x ", c$rowname)
+  c$term = gsub(":", " x ", c$term)
 
   # Change first column name to say 'DV: ____'
-  DVName = names(elipsis[[1]]$nmis[1]) %>% as.character()
-  colnames(c)[1] = paste("DV: ", DVName,by="")
+  DVName = m1$call %>% as.character()
+  colnames(c)[1] = paste("DV: ",strsplit(DVName[2], " ")[[1]][1],by="")
 
   # Add stars for significance if requested:
   if(Stars){
