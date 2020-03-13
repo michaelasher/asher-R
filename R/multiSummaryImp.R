@@ -22,7 +22,7 @@ multiSummaryImp = function(..., Stars = T){
   for(i in seq(from = 1, to = l)){
     if(i > 1){
       m = summary(mice::pool(elipsis[[i]])) %>% data.frame() %>% tibble::rownames_to_column() %>% data.frame()
-      m = dplyr::select(m, -dplyr::starts_with('df'))
+      m = dplyr::select(m, -dplyr::starts_with('df'), -rowname)
       c = merge(c,m, by = 'term', all.x = TRUE, all.y = TRUE)
     }
     cNames = paste(rep(c('est','SE','t','p'),i),seq(2:ncol(c)), sep = '.')
@@ -99,8 +99,8 @@ multiSummaryImp = function(..., Stars = T){
   c$term = gsub(":", " x ", c$term)
 
   # Change first column name to say 'DV: ____'
-  DVName = m1$call %>% as.character()
-  colnames(c)[1] = paste("DV: ",strsplit(DVName[2], " ")[[1]][1],by="")
+  DVName = names(elipsis[[1]]$nmis[1]) %>% as.character()
+  colnames(c)[1] = paste("DV: ", DVName,by="")
 
   # Add stars for significance if requested:
   if(Stars){
