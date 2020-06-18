@@ -82,7 +82,7 @@ stepTable = function(..., Betas = TRUE, ModelStats = FALSE, Output = c('viewer',
   c = dplyr::select(c, -dplyr::starts_with('Miss'), -dplyr::starts_with('Colon'))
   if(twoColumns){c = dplyr::select(c, -dplyr::starts_with('SE'), -dplyr::starts_with('t'))}
   if(Betas){c = dplyr::filter(c, rowname != '(Intercept)')}
-  c = tibble::as.tibble(c)
+  c = tibble::as_tibble(c)
   cNames = rep(c('B','S.E','t','p'), l)
   if(twoColumns){cNames = rep(c('B','p'),l)}
   colnames(c)[2:ncol(c)] = cNames
