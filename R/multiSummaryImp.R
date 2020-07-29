@@ -99,7 +99,8 @@ multiSummaryImp = function(..., Stars = T){
   c$term = gsub(":", " x ", c$term)
 
   # Change first column name to say 'DV: ____'
-  DVName = names(elipsis[[1]]$nmis[1]) %>% as.character()
+  DVName <- format(eval(m1$call[[2]])) %>% stringr::str_extract(".*~") %>%
+    str_replace("~","") %>% trimws()
   colnames(c)[1] = paste("DV: ", DVName,by="")
 
   # Add stars for significance if requested:
