@@ -100,7 +100,7 @@ multiSummaryImp = function(..., Stars = T){
 
   # Change first column name to say 'DV: ____'
   DVName <- format(eval(m1$call[[2]])) %>% stringr::str_extract(".*~") %>%
-    str_replace("~","") %>% trimws()
+    stringr::str_replace("~","") %>% trimws()
   colnames(c)[1] = paste("DV: ", DVName,by="")
 
   # Add stars for significance if requested:
