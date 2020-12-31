@@ -4,8 +4,14 @@
 \alias{stepTable}
 \title{Make a Stepwise Regression Table}
 \usage{
-stepTable(..., Betas = TRUE, ModelStats = FALSE, Output = c("viewer",
-  "markdown"), twoColumns = TRUE, Stars = FALSE)
+stepTable(
+  ...,
+  Betas = TRUE,
+  ModelStats = FALSE,
+  Output = c("viewer", "markdown"),
+  twoColumns = TRUE,
+  Stars = FALSE
+)
 }
 \arguments{
 \item{...}{up to 8 linear models, produced by lm}

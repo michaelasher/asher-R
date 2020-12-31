@@ -4,9 +4,13 @@
 \alias{corAPA}
 \title{Make a Correlation Matrix Suitable for an APA Publication}
 \usage{
-corAPA(x, missingMethod = c("pairwise", "complete"),
-  removeTriangle = c("upper", "lower"), decimals = 2,
-  cutoffs = c(0.001, 0.01, 0.05))
+corAPA(
+  x,
+  missingMethod = c("pairwise", "complete"),
+  removeTriangle = c("upper", "lower"),
+  decimals = 2,
+  cutoffs = c(0.001, 0.01, 0.05)
+)
 }
 \arguments{
 \item{x}{a matrix containing the data}
