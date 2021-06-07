@@ -93,7 +93,7 @@ multiSummaryImp = function(..., Stars = F, Output = "markdown"){
   }
   c = dplyr::arrange(c, Missing1, Missing2,Missing3,Missing4,Missing5,Missing6,Missing7,Missing8,Missing9,Missing10,Missing11,Missing12,Missing13,Missing14,Missing15,Colon)
   c = dplyr::select(c, -dplyr::starts_with('Miss'), -dplyr::starts_with('Colon'),-dplyr::starts_with('SE'), -dplyr::starts_with('t.'))
-  c = tibble::as.tibble(c)
+  c = tibble::as_tibble(c)
   cNames = rep(c('b','sig.'),l)
   colnames(c)[2:ncol(c)] = cNames
 
@@ -115,12 +115,12 @@ multiSummaryImp = function(..., Stars = F, Output = "markdown"){
     names(c)[length(c)] = ""
   }
 
-  if(Output == "markdown") {
-    knitr::kable(c, digits = 3, format = 'html', booktabs = F) %>% kableExtra::kable_styling()
-  }
   if(Output == "dataframe") {
     return(c)
+  } else {
+    knitr::kable(c, digits = 3, format = 'html', booktabs = F) %>% kableExtra::kable_styling()
   }
+
 
 
 }
