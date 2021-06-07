@@ -244,6 +244,7 @@ get_predictions <- function(m, varying, full_range_var = NULL, sd_to_graph = 1){
 #' @param facet2 The (optional) variable to graph as a second facet (for 4-way interactions)
 #' @param color An optional vector of colors for bars or lines.
 #' @return A ggplot (bar or line graph).
+#' @export
 graph_predictions <- function(predictions, geom = "bar",
              x = NULL, fill = NULL, facet = NULL, facet2 = NULL,
              colors = NULL){

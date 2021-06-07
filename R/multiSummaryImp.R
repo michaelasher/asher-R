@@ -9,9 +9,10 @@
 #' @importFrom magrittr "%>%"
 #' @param ... up to 8 linear models, produced by lm
 #' @param Stars adds significance stars for the last model, if requested
+#' @param Output specifies if the function returns a dataframe or a markdown file
 #' @return The regression table
 #' @export
-multiSummaryImp = function(..., Stars = T){
+multiSummaryImp = function(..., Stars = F, Output = "markdown"){
 
   options(knitr.kable.NA = '')
 
@@ -114,6 +115,12 @@ multiSummaryImp = function(..., Stars = T){
     names(c)[length(c)] = ""
   }
 
-  knitr::kable(c, digits = 3, format = 'html', booktabs = F) %>% kableExtra::kable_styling()
+  if(Output == "markdown") {
+    knitr::kable(c, digits = 3, format = 'html', booktabs = F) %>% kableExtra::kable_styling()
+  }
+  if(Output == "dataframe") {
+    return(c)
+  }
+
 
 }
