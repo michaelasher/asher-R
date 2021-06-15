@@ -117,9 +117,9 @@ multiSummaryImp = function(..., Stars = F, Output = "markdown"){
 
   if(Output == "dataframe") {
     return(c)
-  } else {
-    knitr::kable(c, digits = 3, format = 'html', booktabs = F) %>% kableExtra::kable_styling()
   }
+
+  knitr::kable(c, digits = 3, format = 'html', booktabs = F) %>% kableExtra::kable_styling()
 
 
 
