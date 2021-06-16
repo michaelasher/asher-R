@@ -4,12 +4,14 @@
 \alias{multiSummaryImp}
 \title{Summarize the output from multiple regression models with imputed data}
 \usage{
-multiSummaryImp(..., Stars = T)
+multiSummaryImp(..., Stars = F, Output = "markdown")
 }
 \arguments{
 \item{...}{up to 8 linear models, produced by lm}
 
 \item{Stars}{adds significance stars for the last model, if requested}
+
+\item{Output}{specifies if the function returns a dataframe or a markdown file}
 }
 \value{
 The regression table
