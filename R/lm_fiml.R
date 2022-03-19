@@ -10,8 +10,7 @@
 #' @export
 lm_fiml <- function(model, data) {
 
-  lm_formula <- model$call %>% as.character()
-  lm_formula <- lm_formula[2]
+  lm_formula <- eval(model$call[[2]]) %>% as.character()
 
   dv <- colnames(model$model)[1]
 
