@@ -5,14 +5,15 @@
 #'
 #' @importFrom magrittr "%>%"
 #' @param model An lm model
-#' @param data The data set that you used for the model.
 #' @return Model output
 #' @export
-lm_fiml <- function(model, data) {
+lm_fiml <- function(model) {
 
   lm_formula <- eval(model$call[[2]]) %>% as.character()
 
   dv <- colnames(model$model)[1]
+  data <- model$call[3] %>% as.character() %>% str_extract("^[A-Za-z_0-9]*")
+  data <- eval(parse(text = data))
 
   mod_matrix <- model.matrix(as.formula(lm_formula), model.frame(~ ., data, na.action=na.pass)) %>%
     as.data.frame() %>% dplyr::select(-`(Intercept)`)
