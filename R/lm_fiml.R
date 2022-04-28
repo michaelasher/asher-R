@@ -9,7 +9,12 @@
 #' @export
 lm_fiml <- function(model) {
 
-  lm_formula <- eval(model$call[[2]]) %>% as.character()
+  lm_formula <- model$call %>% as.character()
+  lm_formula <- lm_formula[2]
+
+  if(class(eval(model$call[[2]])) == "character"){
+    lm_formula <- eval(model$call[[2]]) %>% as.character()
+  }
 
   dv <- colnames(model$model)[1]
   data <- model$call[3] %>% as.character() %>% str_extract("^[A-Za-z_0-9]*")
