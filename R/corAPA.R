@@ -59,6 +59,9 @@ corAPA = function(x, missingMethod=c("pairwise","complete"),
     Rnew <- as.data.frame(Rnew) %>% tibble::rownames_to_column(var = "measure")
   }
 
+  ## add numbering
+  Rnew <- Rnew %>% dplyr::mutate(measure = stringr::str_c(dplyr::row_number(), ". ", measure))
+
   ## add descriptives
   if(descriptives){
     msd <- df %>%
