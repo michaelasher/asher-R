@@ -4,12 +4,10 @@
 \alias{lm_fiml}
 \title{Run a model that has lm syntax in lavaan with FIML}
 \usage{
-lm_fiml(model, data)
+lm_fiml(model)
 }
 \arguments{
 \item{model}{An lm model}
-
-\item{data}{The data set that you used for the model.}
 }
 \value{
 Model output
