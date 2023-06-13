@@ -49,7 +49,7 @@ add_triangle <- function(df){
 long_cors <- function(df){
   get_cor_df(df) %>%
     purrr::map(~rownames_to_column(.x, var="measure1")) %>%
-    purrr::map(~pivot_longer(.x, -measure1, "measure2")) %>%
+    purrr::map(~pivot_longer(.x, cols = -measure1, names_to = "measure2")) %>%
     dplyr::bind_rows(.id = "id") %>%
     tidyr::pivot_wider(names_from = id, values_from = value) %>%
     dplyr::rename(p = P) %>%
